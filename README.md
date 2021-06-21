@@ -1,5 +1,5 @@
 # AmeliaVaccineBot
-Telegram bot to scan, search, reschedule, and track Singapore Covid-19 vaccination appointments.
+Telegram bot to scan, search, reschedule, and track Singapore Covid-19 vaccination appointments
 - [AmeliaVaccineBot on Telegram](https://t.me/AmeliaVaccineBot)
 
 ## Example commands
