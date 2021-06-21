@@ -21,7 +21,6 @@ Configure these settings in the _src/settings.py_ file
 - `BOT_NAME`: Bot name
 - `DATE_OF_BIRTH`: Date of birth
 - `END_SEARCH_DATE`: End search date
-- `LOCAL_TIMEZONE`: Local timezone
 - `SLOTS_TO_SHOW`: Slots to show per location
 - `PATIENT_GROUP_ID`: Patient group id
 - `VACCINE_TYPE`: Vaccine type
