@@ -1,5 +1,6 @@
 # AmeliaVaccineBot
-Telegram bot to scan, search, reschedule, and track Singapore Covid-19 vaccination appointments
+Telegram bot to scan, search, reschedule, and track Singapore Covid-19 vaccination appointments.
+- [AmeliaVaccineBot on Telegram](https://t.me/AmeliaVaccineBot)
 
 ## Example commands
 1. `/scan` to find locations with an available 1st appointment
@@ -10,7 +11,6 @@ Telegram bot to scan, search, reschedule, and track Singapore Covid-19 vaccinati
 
 # Getting started
 ## Setup Python environment
-
 ```bash
 pip3 install -r requirements.txt -t modules/
 sudo timedatectl set-timezone Asia/Shanghai
@@ -26,7 +26,6 @@ Configure these settings in the _src/settings.py_ file
 - `VACCINE_TYPE`: Vaccine type
 
 ## Run AmeliaVaccineBot
-
 ```bash
 export TELEGRAM_BOT_TOKEN=[TELEGRAM_BOT_TOKEN]
 python3 src
