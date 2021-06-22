@@ -1,12 +1,85 @@
 import sys
 sys.path.insert(0, 'modules/')
 
-import data_functions
 import json
 import network_functions
-import pandas as pd
+import pandas
 import settings
 import time_functions
+
+
+def processScan():
+    startDate = time_functions.getStartDate()
+    df = pandas.read_json(network_functions.getLocations(startDate))
+    filteredDf = filterDf(df)
+    filteredDict = convertDfToDict(filteredDf)
+    responseHead = (f'*location: earliestSlotTime*\nas of '
+                    f'_{time_functions.getCurrentLocalTime()}_\n\n'
+                    )
+    responseBody = ''
+    responseTail = (f'\n*book with [/search1 slotId]\n'
+                    f'+ [/search2 slotId] @ /reschedule*'
+                    )
+    for k, v in filteredDict.items():
+        if v is not None:
+            v = time_functions.localizeTime(v)
+            responseBody += f'{k}: _{v}_\n'
+    response = responseHead + responseBody + responseTail
+    return response
+
+
+def processSearch(input, daysAfter, searchType):
+    searchList = processSearchList(input)
+    startDate = time_functions.getStartDate(daysAfter)
+    df = pandas.read_json(network_functions.getLocations(startDate))
+    searchedDf = searchDf(df, searchList)
+    searchedDict = convertDfToDict(searchedDf)
+    responseHead = ''
+    responseBody = ''
+    responseTail = ''
+    if searchType == 1:
+        responseHead = (f'*1st slotId: time* for _{" ".join(input)}_\nas of '
+                        f'_{time_functions.getCurrentLocalTime()}_\n\n'
+                        )
+        responseTail = '*book with ^ 1st slotId\n+ [/search2 slotId] @ /reschedule*'
+    elif searchType == 2:
+        responseHead = (f'*2nd slotId: time* for _{" ".join(input)}_\nas of '
+                        f'_{time_functions.getCurrentLocalTime()}_\n\n'
+                        )
+        responseTail = '*book with [/search1 slotId]\n+ ^ 2nd slotId @ /reschedule*'
+    for k, v in searchedDict.items():
+        searchedAppointments = json.loads(network_functions.getAppointments(v, startDate))
+        responseBody += f'*{k}*\n{processAppointmentsDict(searchedAppointments)}\n\n'
+    response = responseHead + responseBody + responseTail
+    return response
+
+
+def processStatus(uin, bookingCode):
+    serverResponse = network_functions.getStatus(uin, bookingCode)
+    responseDict = json.loads(serverResponse.text)
+    if serverResponse.status_code != 200:
+        return f'STATUS ERROR: {responseDict["message"]}'
+    responseHead = (f'*{responseDict["name"]}* appointments\n'
+                    f'as of _{time_functions.getCurrentLocalTime()}_\n\n'
+                    )
+    responseTail = (f'*check @ {settings.SUMMARY_PAGE_URL}?uin={uin}&code={bookingCode}&admin=true*')
+    response = responseHead + processResponseDict(responseDict) + responseTail
+    return response
+
+
+def processReschedule(uin, bookingCode, firstSlotId, secondSlotId):
+    serverResponse = network_functions.rescheduleAppointments(uin, bookingCode, firstSlotId, secondSlotId)
+    responseDict = json.loads(serverResponse.text)
+    if serverResponse.status_code != 200:
+        return f'RESCHEDULE ERROR: {responseDict["message"]}'
+    responseHead = (f'*{responseDict["name"]}* appointments _rescheduled_\n'
+                    f'as of _{time_functions.getCurrentLocalTime()}_\n\n'
+                    )
+    responseTail = (f'*check received MOH confirmation SMS\n'
+                    f'check @ {settings.SUMMARY_PAGE_URL}?uin={uin}&code={bookingCode}&admin=true*'
+                    )
+    response = responseHead + processResponseDict(responseDict) + responseTail
+    return response
 
 
 def processSearchList(searchList):
@@ -16,21 +89,9 @@ def processSearchList(searchList):
     return returnList
 
 
-def processSearch(input, daysAfter):
-    searchList = processSearchList(input)
-    df = pd.read_json(network_functions.getLocations())
-    searchedDf = data_functions.searchDf(df, searchList)
-    searchedDict = data_functions.convertDfToDict(searchedDf)
-    responseBody = ''
-    for k, v in searchedDict.items():
-        searchedAppointments = json.loads(network_functions.getAppointments(v, daysAfter))
-        responseBody += f'*{k}*\n{processAppointmentsDict(searchedAppointments)}\n\n'
-    return responseBody
-
-
 def processAppointmentsDict(appointmentsDict):
-    appointmentList = []
     returnText = ''
+    appointmentList = []
     for k, v in appointmentsDict.items():
         appointmentList += v
     if len(appointmentList) > 0:
@@ -56,30 +117,6 @@ def processResponseDict(responseDict):
                        f'time: _{appointment["time"]}_\n'
                        f'status: _{appointmentStatus}_\n\n'
                        )
-    return returnText
-
-
-def processStatusResponse(serverResponse):
-    returnText = ''
-    responseDict = json.loads(serverResponse.text)
-    if serverResponse.status_code != 200:
-        return f'STATUS ERROR: {responseDict["message"]}'
-    returnText += (f'*{responseDict["name"]}* appointments\n'
-                   f'as of _{time_functions.getCurrentLocalTime()}_\n\n'
-                   )
-    returnText += processResponseDict(responseDict)
-    return returnText
-
-
-def processRescheduleResponse(serverResponse):
-    returnText = ''
-    responseDict = json.loads(serverResponse.text)
-    if serverResponse.status_code != 200:
-        return f'RESCHEDULE ERROR: {responseDict["message"]}'
-    returnText += (f'*{responseDict["name"]}* appointments _rescheduled_\n'
-                   f'as of _{time_functions.getCurrentLocalTime()}_\n\n'
-                   )
-    returnText += processResponseDict(responseDict)
     return returnText
 
 

@@ -1,14 +1,13 @@
 import sys
 sys.path.insert(0, 'modules/')
 
-import datetime
 import requests
 import settings
 
 
-def getLocations():
+def getLocations(startDate):
     data = {
-        'startDate': datetime.date.today(),
+        'startDate': startDate,
         'endDate': settings.END_SEARCH_DATE,
         'dob': settings.DATE_OF_BIRTH,
         'patientGroupId': settings.PATIENT_GROUP_ID
@@ -18,9 +17,9 @@ def getLocations():
     return response.text
 
 
-def getAppointments(hci_code, daysAfter):
+def getAppointments(hci_code, startDate):
     data = {
-        'startDate': datetime.date.today() + datetime.timedelta(days = daysAfter),
+        'startDate': startDate,
         'endDate': settings.END_SEARCH_DATE,
         'isFirstAppt': False,
     }
