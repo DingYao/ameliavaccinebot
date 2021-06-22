@@ -14,7 +14,7 @@ HELP_TEXT = (f'*Instructions*\n\n'
              f'5. /status to show your scheduled appointments'
              )
 LOCAL_TIMEZONE = 'Asia/Shanghai'
-LOCATIONS_ENDPOINT = 'https://appointment.vaccine.gov.sg/api/v1/locations'
+LOCATIONS_ENDPOINT = 'https://appointment.vaccine.gov.sg/api/v1/locations/'
 PATIENT_GROUP_ID = 1
 SLOTS_TO_SHOW = 10
 START_TEXT = (f'Welcome to *{BOT_NAME}*!\n'
