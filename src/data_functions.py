@@ -115,11 +115,14 @@ def processAppointmentsDict(appointmentsDict, searchType):
 
 def processResponseDict(responseDict):
     returnText = ''
+    appointmentCount = 0
     for appointment in responseDict['appointments']:
+        appointmentCount += 1
         appointmentStatus = appointment["status"]
         if appointment["status"] == '':
             appointmentStatus += 'not completed'
-        returnText += (f'*{appointment["location"]["name"]}*\n'
+        returnText += (f'*Appointment {appointmentCount}\n'
+                       f'{appointment["location"]["name"]}*\n'
                        f'bookingId: _{appointment["id"]}_\n'
                        f'slotId: _{appointment["slot_id"]}_\n'
                        f'address:\n_{appointment["location"]["address"]}_\n'
