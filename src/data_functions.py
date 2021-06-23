@@ -1,10 +1,11 @@
+import sys
+sys.path.insert(0, 'modules/')
+
 import time_functions
 import settings
 import pandas
 import network_functions
 import json
-import sys
-sys.path.insert(0, 'modules/')
 
 
 def processScan():

@@ -1,10 +1,10 @@
+import sys
+sys.path.insert(0, 'modules/')
+
 import settings
 import data_functions
 import check_functions
 import logging
-import sys
-sys.path.insert(0, 'modules/')
-
 logger = logging.getLogger()
 logger.setLevel(logging.INFO)
 

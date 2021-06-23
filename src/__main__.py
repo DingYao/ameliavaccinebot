@@ -1,10 +1,10 @@
+import sys
+sys.path.insert(0, 'modules/')
+
 from telegram.ext import Updater, MessageHandler, CommandHandler, Filters
 import settings
 import handler_functions
 import logging
-import sys
-sys.path.insert(0, 'modules/')
-
 logger = logging.getLogger()
 logger.setLevel(logging.INFO)
 

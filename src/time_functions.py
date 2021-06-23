@@ -1,8 +1,9 @@
+import sys
+sys.path.insert(0, 'modules/')
+
 import settings
 import pytz
 import datetime
-import sys
-sys.path.insert(0, 'modules/')
 
 
 def localizeTime(string):

@@ -1,7 +1,8 @@
-import settings
-import requests
 import sys
 sys.path.insert(0, 'modules/')
+
+import settings
+import requests
 
 
 def getLocations(startDate):
