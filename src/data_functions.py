@@ -121,8 +121,8 @@ def processResponseDict(responseDict):
         appointmentStatus = appointment["status"]
         if appointment["status"] == '':
             appointmentStatus += 'not completed'
-        returnText += (f'*Appointment {appointmentCount}\n'
-                       f'{appointment["location"]["name"]}*\n'
+        returnText += (f'*Appointment {appointmentCount}*\n'
+                       f'_{appointment["location"]["name"]}_\n'
                        f'bookingId: _{appointment["id"]}_\n'
                        f'slotId: _{appointment["slot_id"]}_\n'
                        f'address:\n_{appointment["location"]["address"]}_\n'
