@@ -49,7 +49,7 @@ def processSearch(input, daysAfter, searchType):
         responseTail = '*book with [/search1 slotId]\n+ ^ 2nd slotId @ /reschedule*'
     for k, v in searchedDict.items():
         searchedAppointments = json.loads(network_functions.getAppointments(v, startDate))
-        responseBody += f'*{k}*\n{processAppointmentsDict(searchedAppointments)}\n\n'
+        responseBody += f'*{k}*\n{processAppointmentsDict(searchedAppointments, searchType)}\n\n'
     response = responseHead + responseBody + responseTail
     return response
 
@@ -89,16 +89,22 @@ def processSearchList(searchList):
     return returnList
 
 
-def processAppointmentsDict(appointmentsDict):
+def processAppointmentsDict(appointmentsDict, searchType):
     returnText = ''
     appointmentList = []
     for k, v in appointmentsDict.items():
         appointmentList += v
     if len(appointmentList) > 0:
-        for i in range(settings.SLOTS_TO_SHOW):
-            if i == len(appointmentList):
-                break
-            returnText += f'{appointmentList[i]["id"]}: _{time_functions.localizeTime(appointmentList[i]["time"])}_\n'
+        if searchType == 1:
+            for i in range(settings.SLOTS_TO_SHOW_SEARCH1):
+                if i == len(appointmentList):
+                    break
+                returnText += f'{appointmentList[i]["id"]}: _{time_functions.localizeTime(appointmentList[i]["time"])}_\n'
+        elif searchType == 2:
+            for i in range(settings.SLOTS_TO_SHOW_SEARCH2):
+                if i == len(appointmentList):
+                    break
+                returnText += f'{appointmentList[i]["id"]}: _{time_functions.localizeTime(appointmentList[i]["time"])}_\n'
     else:
         returnText += 'None\n'
     return returnText[:-1]

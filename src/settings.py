@@ -16,7 +16,8 @@ HELP_TEXT = (f'*Instructions*\n\n'
 LOCAL_TIMEZONE = 'Asia/Shanghai'
 LOCATIONS_ENDPOINT = 'https://appointment.vaccine.gov.sg/api/v1/locations/'
 PATIENT_GROUP_ID = 1
-SLOTS_TO_SHOW = 10
+SLOTS_TO_SHOW_SEARCH1 = 10
+SLOTS_TO_SHOW_SEARCH2 = 20
 START_TEXT = (f'Welcome to *{BOT_NAME}*!\n'
               f'_You must have a valid [NRIC/UIN] and [bookingCode] to use /status\n'
               f'and /reschedule_\n\n'
