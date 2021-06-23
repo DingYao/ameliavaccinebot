@@ -17,13 +17,13 @@ def getLocations(startDate):
     return response.text
 
 
-def getAppointments(hci_code, startDate):
+def getAppointments(hciCode, startDate):
     data = {
         'startDate': startDate,
         'endDate': settings.END_SEARCH_DATE,
         'isFirstAppt': False,
     }
-    response = requests.get(settings.APPOINTMENTS_ENDPOINT + hci_code, params = data,
+    response = requests.get(settings.APPOINTMENTS_ENDPOINT + hciCode, params = data,
                                 headers = {'content-type': 'application/json'})
     return response.text
 

@@ -6,13 +6,13 @@ import pytz
 import settings
 
 
-def localizeTime(v):
+def localizeTime(string):
     try:
-        v = datetime.datetime.strptime(v[:-5], "%Y-%m-%dT%H:%M:%S")
+        string = datetime.datetime.strptime(string[:-5], "%Y-%m-%dT%H:%M:%S")
     except:
         pass
-    v = pytz.utc.localize(v).astimezone(pytz.timezone(settings.LOCAL_TIMEZONE))
-    return v
+    string = pytz.utc.localize(string).astimezone(pytz.timezone(settings.LOCAL_TIMEZONE))
+    return string
 
 
 def getCurrentLocalTime():
