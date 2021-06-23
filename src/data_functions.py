@@ -1,11 +1,10 @@
+import time_functions
+import settings
+import pandas
+import network_functions
+import json
 import sys
 sys.path.insert(0, 'modules/')
-
-import json
-import network_functions
-import pandas
-import settings
-import time_functions
 
 
 def processScan():
@@ -48,7 +47,8 @@ def processSearch(input, daysAfter, searchType):
                         )
         responseTail = '*book with [/search1 slotId]\n+ ^ 2nd slotId @ /reschedule*'
     for k, v in searchedDict.items():
-        searchedAppointments = json.loads(network_functions.getAppointments(v, startDate))
+        searchedAppointments = json.loads(
+            network_functions.getAppointments(v, startDate))
         responseBody += f'*{k}*\n{processAppointmentsDict(searchedAppointments, searchType)}\n\n'
     response = responseHead + responseBody + responseTail
     return response
@@ -62,13 +62,15 @@ def processStatus(uin, bookingCode):
     responseHead = (f'*{responseDict["name"]}* appointments\n'
                     f'as of _{time_functions.getCurrentLocalTime()}_\n\n'
                     )
-    responseTail = (f'*check @ {settings.SUMMARY_PAGE_URL}?uin={uin}&code={bookingCode}&admin=true*')
+    responseTail = (
+        f'*check @ {settings.SUMMARY_PAGE_URL}?uin={uin}&code={bookingCode}&admin=true*')
     response = responseHead + processResponseDict(responseDict) + responseTail
     return response
 
 
 def processReschedule(uin, bookingCode, firstSlotId, secondSlotId):
-    serverResponse = network_functions.rescheduleAppointments(uin, bookingCode, firstSlotId, secondSlotId)
+    serverResponse = network_functions.rescheduleAppointments(
+        uin, bookingCode, firstSlotId, secondSlotId)
     responseDict = json.loads(serverResponse.text)
     if serverResponse.status_code != 200:
         return f'RESCHEDULE ERROR: {responseDict["message"]}'

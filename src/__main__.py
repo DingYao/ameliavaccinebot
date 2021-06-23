@@ -1,16 +1,15 @@
+from telegram.ext import Updater, MessageHandler, CommandHandler, Filters
+import settings
+import handler_functions
+import logging
 import sys
 sys.path.insert(0, 'modules/')
 
-import logging
 logger = logging.getLogger()
 logger.setLevel(logging.INFO)
 
-import handler_functions
-import settings
-from telegram.ext import Updater, MessageHandler, CommandHandler, Filters
 
-
-updater = Updater(token = settings.TELEGRAM_BOT_TOKEN)
+updater = Updater(token=settings.TELEGRAM_BOT_TOKEN)
 dispatcher = updater.dispatcher
 job = updater.job_queue
 logging.info('Bot initialized')
