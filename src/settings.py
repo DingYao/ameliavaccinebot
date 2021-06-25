@@ -33,4 +33,4 @@ START_TEXT = (f'Welcome to *{BOT_NAME}*!\n'
 STATUS_RESCHEDULE_ENDPOINT = 'https://appointment.vaccine.gov.sg/api/v1/appointments/'
 SUMMARY_PAGE_URL = 'https://appointment.vaccine.gov.sg/'
 TELEGRAM_BOT_TOKEN = os.getenv('TELEGRAM_BOT_TOKEN')
-VACCINE_TYPE = 'Pfizer'
+VACCINE_TYPE = 'Comirnaty'
