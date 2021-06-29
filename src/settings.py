@@ -3,12 +3,13 @@ import os
 
 APPOINTMENTS_ENDPOINT = 'https://appointment.vaccine.gov.sg/api/v1/availability/'
 BOT_NAME = 'AmeliaVaccineBot'
+DAYS_AFTER = 28
 DATE_OF_BIRTH = '13-Oct-1994'
 END_SEARCH_DATE = '2021-09-30'
 HELP_TEXT = (f'*Instructions*\n\n'
              f'1. /scan to find locations with an available 1st appointment\n'
              f'2. /search1 a location to get _slotId_ of the available 1st appointment\n'
-             f'3. /search2 the same location to get _slotId_ of an available 2nd appointment 6 weeks later\n'
+             f'3. /search2 the same location to get _slotId_ of an available 2nd appointment {DAYS_AFTER} days later\n'
              f'4. /reschedule [[NRIC/UIN]] [[bookingCode]] [[/search1 slotId]]\n'
              f'[[/search2 slotId]] to reschedule your appointments\n'
              f'5. /status to show your scheduled appointments'

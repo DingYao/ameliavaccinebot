@@ -47,7 +47,7 @@ def search2(update, context):
             text='SYNTAX ERROR: Use /search2 [[Location(1) Location(2)...]]', parse_mode='Markdown')
         return
 
-    response = data_functions.processSearch(input, 42, 2)
+    response = data_functions.processSearch(input, settings.DAYS_AFTER, 2)
     update.message.reply_text(response, parse_mode='Markdown')
 
 
