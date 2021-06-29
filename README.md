@@ -8,7 +8,7 @@ Telegram bot to scan, search, reschedule, and track Singapore Covid-19 vaccinati
 
 1. `/scan` to find locations with an available 1st appointment
 2. `/search1 [a location]` to get _slotId_ of the available 1st appointment
-3. `/search2 [the same location]` to get _slotId_ of an available 2nd appointment 28 days later
+3. `/search2 [the same location]` to get _slotId_ of an available 2nd appointment {DAYS_AFTER} days later
 4. `/reschedule [NRIC/UIN] [bookingCode] [/search1 slotId] [/search2 slotId]` to reschedule your appointments
 5. `/status [NRIC/UIN] [bookingCode]` to show your scheduled appointments
 
