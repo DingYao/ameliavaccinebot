@@ -3,7 +3,7 @@ import os
 
 APPOINTMENTS_ENDPOINT = 'https://appointment.vaccine.gov.sg/api/v1/availability/'
 BOT_NAME = 'AmeliaVaccineBot'
-DAYS_AFTER = 28
+DAYS_AFTER = 21
 DATE_OF_BIRTH = '13-Oct-1994'
 END_SEARCH_DATE = '2021-09-30'
 HELP_TEXT = (f'*Instructions*\n\n'
